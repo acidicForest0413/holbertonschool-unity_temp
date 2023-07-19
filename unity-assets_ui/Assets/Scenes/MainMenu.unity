@@ -458,8 +458,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LEVEL SELECT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5a2a25a3a25829b40833c551a8e8d529, type: 2}
-  m_sharedMaterial: {fileID: 4491797931911530990, guid: 5a2a25a3a25829b40833c551a8e8d529, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9cbc63542da067a46a933aa5a34e7f1e, type: 2}
+  m_sharedMaterial: {fileID: -2025950563494920267, guid: 9cbc63542da067a46a933aa5a34e7f1e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
