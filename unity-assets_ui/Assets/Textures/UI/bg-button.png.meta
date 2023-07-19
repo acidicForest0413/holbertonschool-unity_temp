@@ -157,8 +157,8 @@ TextureImporter:
         y: 0
         width: 201
         height: 70
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.46970996, y: 0.6894429}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -174,19 +174,19 @@ TextureImporter:
       name: bg-button_1
       rect:
         serializedVersion: 2
-        x: 203
+        x: 201
         y: 0
-        width: 198
+        width: 200
         height: 70
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6cb1ae0237b22570800000000000000
-      internalID: 8440510077267459181
+      spriteID: 14391e343963c9e40906f9602c9198c4
+      internalID: 399749867
       vertices: []
       indices: 
       edges: []
@@ -206,8 +206,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53839cf0463f7c610800000000000000
-      internalID: 1641548200286959669
+      spriteID: 9c1f6bcc19f8b0c4a8579e6f487d4f05
+      internalID: 1210258883
       vertices: []
       indices: 
       edges: []
@@ -224,8 +224,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       bg-button_0: 3945451662944984592
-      bg-button_1: 8440510077267459181
-      bg-button_2: 1641548200286959669
+      bg-button_1: 399749867
+      bg-button_2: 1210258883
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
