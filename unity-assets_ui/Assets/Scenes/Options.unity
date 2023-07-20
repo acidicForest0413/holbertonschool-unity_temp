@@ -2333,6 +2333,7 @@ GameObject:
   - component: {fileID: 1972445015}
   - component: {fileID: 1972445014}
   - component: {fileID: 1972445013}
+  - component: {fileID: 1972445017}
   m_Layer: 5
   m_Name: OptionsCanvas
   m_TagString: Untagged
@@ -2418,8 +2419,8 @@ RectTransform:
   - {fileID: 1889589112}
   - {fileID: 277870095}
   - {fileID: 298714124}
-  - {fileID: 7967540352923433003}
   - {fileID: 7967540353043768081}
+  - {fileID: 7967540352923433003}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2428,6 +2429,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1972445017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972445012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b68873654e9c747972464abd7fc60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1997804028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2522,7 +2535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4389499501603791900, guid: 49e5762b8564d474db0cd0d83a82eb69, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4389499501603791900, guid: 49e5762b8564d474db0cd0d83a82eb69, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2625,6 +2638,34 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
       objectReference: {fileID: 399749867, guid: 97d47089170550a4c90e9e44711fcc4f, type: 3}
+    - target: {fileID: 1038766209281572812, guid: d000556db77ef53439ad12e47780d770, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038766209281572812, guid: d000556db77ef53439ad12e47780d770, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038766209281572812, guid: d000556db77ef53439ad12e47780d770, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1972445017}
+    - target: {fileID: 1038766209281572812, guid: d000556db77ef53439ad12e47780d770, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038766209281572812, guid: d000556db77ef53439ad12e47780d770, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038766209281572812, guid: d000556db77ef53439ad12e47780d770, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OptionsMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038766209281572812, guid: d000556db77ef53439ad12e47780d770, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1038766209281572813, guid: d000556db77ef53439ad12e47780d770, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2635,7 +2676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1038766209281572813, guid: d000556db77ef53439ad12e47780d770, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1038766209281572813, guid: d000556db77ef53439ad12e47780d770, type: 3}
       propertyPath: m_AnchorMax.x

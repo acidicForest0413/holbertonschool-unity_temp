@@ -1,19 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    // Assuming that your PauseMenu Canvas is attached to this same GameObject
     public GameObject pauseCanvas;
-    
-    // This boolean keeps track of whether or not the game is currently paused
     private bool isPaused = false;
 
-    // Update is called once per frame
     void Update()
     {
-        // Check if the Esc key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
@@ -27,19 +23,36 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    // Resume function
     public void Resume()
     {
         pauseCanvas.SetActive(false);
-        Time.timeScale = 1f; // This will make the game run at normal speed
+        Time.timeScale = 1f;
         isPaused = false;
     }
 
-    // Pause function
     public void Pause()
     {
         pauseCanvas.SetActive(true);
-        Time.timeScale = 0f; // This will stop time in the game, effectively pausing it
+        Time.timeScale = 0f;
         isPaused = true;
+    }
+
+    // Added functions
+    public void Restart()
+    {
+        Time.timeScale = 1f; // Unpause time
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f; // Unpause time
+        SceneManager.LoadScene("MainMenu"); // Load the MainMenu scene
+    }
+
+    public void Options()
+    {
+        Time.timeScale = 1f; // Unpause time
+        SceneManager.LoadScene("Options"); // Load the Options scene
     }
 }
