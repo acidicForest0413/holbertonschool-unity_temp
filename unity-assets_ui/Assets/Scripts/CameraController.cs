@@ -6,11 +6,14 @@ public class CameraController : MonoBehaviour
 {
     public GameObject player;
     public float turnSpeed = 4.0f;
-    public bool isInverted = false; // New variable for inversion
+    private bool isInverted = false; // New variable for inversion
     private Vector3 offset;
 
     private void Start()
     {
+        // Load the isInverted setting at start
+        isInverted = PlayerPrefs.GetInt("InvertY", 0) == 1;
+
         offset = new Vector3(player.transform.position.x, player.transform.position.y + 8.0f, player.transform.position.z - 8.0f);
     }
 
