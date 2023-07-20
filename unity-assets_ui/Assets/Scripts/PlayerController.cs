@@ -26,41 +26,34 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-{
-    float moveHorizontal = Input.GetAxis("Horizontal");
-    float moveVertical = Input.GetAxis("Vertical");
-
-    // Take the forward vector of the camera and turn it into a direction for the player
-    direction = cameraTransform.forward;
-    direction.y = 0;
-    direction = direction.normalized;
-
-    Vector3 movement = (direction * moveVertical) + (cameraTransform.right * moveHorizontal);
-
-    rb.AddForce(movement * speed);
-
-    // Use a Physics check to see if we are on the ground
-    bool wasGrounded = isGrounded; // remember the old grounded state
-    isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
-
-    // Check for landing
-    if (!wasGrounded && isGrounded)
     {
-        canJump = true; // Player can jump again
-    }
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
 
-    if (Input.GetButtonDown("Jump") && isGrounded && canJump)
-    {
-        jump = true;
-        canJump = false; // Player can't jump again until they touch the ground
-    }
+        // Take the forward vector of the camera and turn it into a direction for the player
+        direction = cameraTransform.forward;
+        direction.y = 0;
+        direction = direction.normalized;
 
-    if (transform.position.y < -10)
-    {
-        Respawn();
-    }
-}
+        Vector3 movement = (direction * moveVertical) + (cameraTransform.right * moveHorizontal);
 
+        rb.AddForce(movement * speed);
+
+        // Use a Physics check to see if we are on the ground
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+
+        if (Input.GetButtonDown("Jump") && isGrounded && canJump)
+        {
+            jump = true;
+            canJump = false; // Player can't jump again until the coroutine finishes
+            StartCoroutine(EnableJump());
+        }
+
+        if (transform.position.y < -10)
+        {
+            Respawn();
+        }
+    }
 
     IEnumerator EnableJump()
     {
