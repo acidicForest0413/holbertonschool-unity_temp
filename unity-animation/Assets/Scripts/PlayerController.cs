@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private bool jump = false;
     private bool isGrounded;
     private bool canJump = true; // New variable to control if the player can jump
+    private bool hasMoved = false;
+
 
     void Start()
     {
@@ -25,35 +27,43 @@ public class PlayerController : MonoBehaviour
         respawnPoint = transform.position; // Set the respawn point to the initial position
     }
 
-    void Update()
+void Update()
+{
+    float moveHorizontal = Input.GetAxis("Horizontal");
+    float moveVertical = Input.GetAxis("Vertical");
+
+    // Take the forward vector of the camera and turn it into a direction for the player
+    direction = cameraTransform.forward;
+    direction.y = 0;
+    direction = direction.normalized;
+
+    Vector3 movement = (direction * moveVertical) + (cameraTransform.right * moveHorizontal);
+
+    // Rotate the character in the movement direction
+    if (movement.magnitude > 0.1f)  // Avoids unnecessary rotations when the movement is too small or negligible.
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        // Take the forward vector of the camera and turn it into a direction for the player
-        direction = cameraTransform.forward;
-        direction.y = 0;
-        direction = direction.normalized;
-
-        Vector3 movement = (direction * moveVertical) + (cameraTransform.right * moveHorizontal);
-
-        rb.AddForce(movement * speed);
-
-        // Use a Physics check to see if we are on the ground
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
-
-        if (Input.GetButtonDown("Jump") && isGrounded && canJump)
-        {
-            jump = true;
-            canJump = false; // Player can't jump again until the coroutine finishes
-            StartCoroutine(EnableJump());
-        }
-
-        if (transform.position.y < -10)
-        {
-            Respawn();
-        }
+        Quaternion desiredRotation = Quaternion.LookRotation(movement, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, speed * Time.deltaTime);
     }
+
+    rb.AddForce(movement * speed);
+
+    // Use a Physics check to see if we are on the ground
+    isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+
+    if (Input.GetButtonDown("Jump") && isGrounded && canJump)
+    {
+        jump = true;
+        canJump = false; // Player can't jump again until the coroutine finishes
+        StartCoroutine(EnableJump());
+    }
+
+    if (transform.position.y < -10)
+    {
+        Respawn();
+    }
+}
+
 
     IEnumerator EnableJump()
     {
