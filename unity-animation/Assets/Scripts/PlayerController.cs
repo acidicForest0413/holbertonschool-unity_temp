@@ -60,13 +60,11 @@ public class PlayerController : MonoBehaviour
             canJump = false;
             StartCoroutine(EnableJump());
             isGrounded = false;
-            Debug.Log("jumping");
         }
 
         if (isGrounded)
         {
             anim.SetBool("IsJumping", false);
-            Debug.Log("grounded");
         }
 
         // Respawn Logic
