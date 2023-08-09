@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool canJump = true; // New variable to control if the player can jump
     private bool hasMoved = false;
+    private Animator anim;
 
 
     void Start()
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         rb = GetComponent<Rigidbody>();
         respawnPoint = transform.position; // Set the respawn point to the initial position
+        anim = GetComponentInChildren<Animator>();
     }
 
 void Update()
@@ -39,8 +41,12 @@ void Update()
 
     Vector3 movement = (direction * moveVertical) + (cameraTransform.right * moveHorizontal);
 
+    // Checking if the player is moving and setting the animation parameter accordingly
+    bool isMoving = movement.magnitude > 0.1f;
+    anim.SetBool("IsMoving", isMoving);
+
     // Rotate the character in the movement direction
-    if (movement.magnitude > 0.1f)  // Avoids unnecessary rotations when the movement is too small or negligible.
+    if (isMoving)
     {
         Quaternion desiredRotation = Quaternion.LookRotation(movement, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, speed * Time.deltaTime);
@@ -63,6 +69,7 @@ void Update()
         Respawn();
     }
 }
+
 
 
     IEnumerator EnableJump()
