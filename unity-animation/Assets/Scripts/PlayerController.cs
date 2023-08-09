@@ -16,71 +16,75 @@ public class PlayerController : MonoBehaviour
     private Transform cameraTransform;
     private bool jump = false;
     private bool isGrounded;
-    private bool canJump = true; // New variable to control if the player can jump
-    private bool hasMoved = false;
+    private bool canJump = true; 
     private Animator anim;
-
 
     void Start()
     {
         cameraTransform = Camera.main.transform;
         rb = GetComponent<Rigidbody>();
-        respawnPoint = transform.position; // Set the respawn point to the initial position
+        respawnPoint = transform.position;
         anim = GetComponentInChildren<Animator>();
     }
 
-void Update()
-{
-    float moveHorizontal = Input.GetAxis("Horizontal");
-    float moveVertical = Input.GetAxis("Vertical");
-
-    // Take the forward vector of the camera and turn it into a direction for the player
-    direction = cameraTransform.forward;
-    direction.y = 0;
-    direction = direction.normalized;
-
-    Vector3 movement = (direction * moveVertical) + (cameraTransform.right * moveHorizontal);
-
-    // Checking if the player is moving and setting the animation parameter accordingly
-    bool isMoving = movement.magnitude > 0.1f;
-    anim.SetBool("IsMoving", isMoving);
-
-    // Rotate the character in the movement direction
-    if (isMoving)
+    void Update()
     {
-        Quaternion desiredRotation = Quaternion.LookRotation(movement, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, speed * Time.deltaTime);
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Use camera forward for direction
+        Vector3 moveDirection = cameraTransform.forward * moveVertical + cameraTransform.right * moveHorizontal;
+        moveDirection.y = 0; 
+        moveDirection.Normalize();
+
+        rb.AddForce(moveDirection * speed);
+
+        // Character Rotation to Face Movement Direction
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion rotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
+        }
+
+        // Animation Handling
+        bool isMoving = moveDirection.magnitude > 0.1f;
+        anim.SetBool("IsMoving", isMoving);
+
+        // Ground Check and Jumping Logic
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+
+        if (Input.GetButtonDown("Jump") && isGrounded && canJump)
+        {
+            jump = true;
+            anim.SetBool("IsJumping", true); 
+            canJump = false;
+            StartCoroutine(EnableJump());
+            isGrounded = false;
+            Debug.Log("jumping");
+        }
+
+        if (isGrounded)
+        {
+            anim.SetBool("IsJumping", false);
+            Debug.Log("grounded");
+        }
+
+        // Respawn Logic
+        if (transform.position.y < -10)
+        {
+            Respawn();
+        }
     }
-
-    rb.AddForce(movement * speed);
-
-    // Use a Physics check to see if we are on the ground
-    isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
-
-    if (Input.GetButtonDown("Jump") && isGrounded && canJump)
-    {
-        jump = true;
-        canJump = false; // Player can't jump again until the coroutine finishes
-        StartCoroutine(EnableJump());
-    }
-
-    if (transform.position.y < -10)
-    {
-        Respawn();
-    }
-}
-
-
 
     IEnumerator EnableJump()
     {
-        yield return new WaitForSeconds(0.1f); // Wait for 0.1 seconds
-        canJump = true; // Player can jump again
+        yield return new WaitForSeconds(0.1f); 
+        canJump = true;
     }
 
     void FixedUpdate()
     {
-        if(jump)
+        if (jump)
         {
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             jump = false;
@@ -89,10 +93,7 @@ void Update()
 
     void Respawn()
     {
-        // Set the player's position to a point above the respawn point
         transform.position = respawnPoint + new Vector3(0, 10, 0);
-
-        // Ensure the player's velocity is reset so they fall straight down
         rb.velocity = Vector3.zero;
     }
 }
