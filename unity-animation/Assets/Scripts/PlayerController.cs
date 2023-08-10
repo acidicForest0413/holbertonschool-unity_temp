@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool canJump = true; 
     private Animator anim;
+    private float fallingTime = 0f;
+
 
     void Start()
     {
@@ -53,6 +55,23 @@ public class PlayerController : MonoBehaviour
         // Ground Check and Jumping Logic
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
 
+        // Falling Logic
+        if (!isGrounded && rb.velocity.y < 0)
+        {
+            fallingTime += Time.deltaTime;  // Increment the falling time
+
+            if(fallingTime >= 1f)
+            {
+                Debug.Log("Character is Falling!");
+                anim.SetBool("IsFalling", true);
+            }
+}
+else
+{
+    fallingTime = 0f;  // Reset the falling time
+    anim.SetBool("IsFalling", false);
+}
+
         if (Input.GetButtonDown("Jump") && isGrounded && canJump)
         {
             jump = true;
@@ -65,6 +84,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             anim.SetBool("IsJumping", false);
+            Debug.Log("Character is Grounded!");
         }
 
         // Respawn Logic
