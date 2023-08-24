@@ -443,6 +443,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8435149241731497473, guid: aa56e7ffa18c1d545896b6cca58e5460, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -8067726398312463513, guid: 7a3015c6c9fb52043b4bee047713f3ce, type: 3}
+    - target: {fileID: -4002239815115787907, guid: aa56e7ffa18c1d545896b6cca58e5460, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e4f631ab3bd5ea044b0137686b79f4c8, type: 2}
     - target: {fileID: 919132149155446097, guid: aa56e7ffa18c1d545896b6cca58e5460, type: 3}
       propertyPath: m_Name
       value: Flag
@@ -6877,7 +6885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667d9b2527511a5408c7208750c00182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 10
   jumpForce: 6
   groundCheck: {fileID: 1314544337}
   groundCheckRadius: 2

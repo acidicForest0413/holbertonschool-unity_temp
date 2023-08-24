@@ -8,7 +8,7 @@ public class TimerTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            timer.startTimer = true;
+            timer.StartTimer();
         }
     }
 }

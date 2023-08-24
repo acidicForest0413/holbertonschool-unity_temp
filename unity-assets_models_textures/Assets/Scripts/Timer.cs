@@ -9,14 +9,10 @@ public class Timer : MonoBehaviour
     private float startTime;
     public bool startTimer = false;
 
-    void Start()
-    {
-        startTime = Time.time;
-    }
 
     void Update()
     {
-        if (startTimer) // Add this line
+        if (startTimer)
         {
             float t = Time.time - startTime;
 
@@ -26,5 +22,10 @@ public class Timer : MonoBehaviour
 
             timerText.text = minutes + ":" + seconds + "." + milliseconds;
         }
+    }
+    public void StartTimer()
+    {
+        startTimer = true;
+        startTime = Time.time;
     }
 }
