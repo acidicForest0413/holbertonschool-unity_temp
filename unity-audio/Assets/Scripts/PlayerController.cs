@@ -10,6 +10,11 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask groundLayer;
     public Vector3 respawnPoint;
+    public AudioClip landingGrassClip;
+    public AudioClip landingRockClip;
+    public AudioSource landingAudioSource;
+    public LayerMask grassLayer;
+    public LayerMask rockLayer;
 
     private Vector3 direction;
     private Rigidbody rb;
@@ -19,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private bool canJump = true; 
     private Animator anim;
     private float fallingTime = 0f;
+    private bool wasInAir = false;
+    private bool justRespawned = false;
 
 
     void Start()
@@ -81,17 +88,31 @@ else
             isGrounded = false;
         }
 
-        if (isGrounded)
-        {
-            anim.SetBool("IsJumping", false);
-            Debug.Log("Character is Grounded!");
-        }
+if (isGrounded)
+{
+    anim.SetBool("IsJumping", false);
+
+    if (wasInAir)  // The player just landed
+    {
+        PlayLandingSound();
+        wasInAir = false;
+    }
+}
+else
+{
+    wasInAir = true;
+}
+
 
         // Respawn Logic
         if (transform.position.y < -10)
         {
             Respawn();
         }
+    }
+    public bool IsPlayerGrounded()
+    {
+        return isGrounded;
     }
 
     IEnumerator EnableJump()
@@ -113,5 +134,28 @@ else
     {
         transform.position = respawnPoint + new Vector3(0, 10, 0);
         rb.velocity = Vector3.zero;
+        justRespawned = true;
+    }
+    void PlayLandingSound()
+    {
+        if (!justRespawned)
+            return;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        {
+            if (grassLayer == (grassLayer | (1 << hit.collider.gameObject.layer)))
+            {
+                landingAudioSource.clip = landingGrassClip;
+            }
+            else if (rockLayer == (rockLayer | (1 << hit.collider.gameObject.layer)))
+            {
+                landingAudioSource.clip = landingRockClip;
+            }
+            landingAudioSource.Play();
+        }
+
+        justRespawned = false;
     }
 }
+
